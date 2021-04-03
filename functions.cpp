@@ -49,10 +49,10 @@ bool isInt(string s, int& value)
   }
 }
 
-bool datain(vector<double> &datain, char dtype, int &start)
+bool datain(int &M, int &n, vector<double> &b, vector<double> &a)
 {
   string fname;
-  cout << "File Name for " << dtype << ": ";
+  cout << "File Name for LTI system: ";
   getline(cin,fname); //take user input filename
   string ts; //string being read in file
   double tempv; //temp storage for valid doubles
@@ -65,6 +65,64 @@ bool datain(vector<double> &datain, char dtype, int &start)
     cout<<"Error, file not detected. Try again.\n\n";
     return 0;
   }
+  else
+  {
+    fin >> ts;
+    if(!isInt(ts,tempi))
+    {
+      cout<<"invalid file."<<endl;
+      return 0;
+    }
+    else
+    {
+      M=tempi-1;
+      fin >> ts;
+      if (!isInt(ts,tempi))
+      {
+        cout<<"invalid file."<<endl;
+        return 0;
+      }
+      else
+      {
+        n=tempi;
+      }
+    }
+    for (int i=0;i<M+1;i++){
+      fin >> ts; //reads the first string in a line
+
+      //if double and not blank
+      if((isDouble(ts,tempv)) && (ts != ""))
+      {
+        b.push_back(tempv); //add value to data vector
+      }
+      else
+      {
+        break; //ends when start of line is not valid signal value
+      }
+      
+      getline(fin,ts); //skips the rest of the line
+    }
+    for (int i=0;i<n;i++){
+      fin >> ts; //reads the first string in a line
+
+      //if double and not blank
+      if((isDouble(ts,tempv)) && (ts != ""))
+      {
+        a.push_back(tempv); //add value to data vector
+      }
+      else
+      {
+        break; //ends when start of line is not valid signal value
+      }
+      
+      getline(fin,ts); //skips the rest of the line
+    }
+
+  }
+
+
+
+  /*
   else //check for possible index on first line
   {
     fin >> ts; //check first string in file
@@ -130,6 +188,7 @@ bool datain(vector<double> &datain, char dtype, int &start)
       getline(fin,ts); //skips the rest of the line
     }
   }
+  */
   return 1;
 }
 

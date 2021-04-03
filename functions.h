@@ -8,7 +8,7 @@ bool isDouble(string s, double& value);
 
 bool isInt(string s, int& value);
 
-bool datain(vector<double> &datain, char dtype, int &start);
+bool datain(int &M, int &n, vector<double> &b, vector<double> &a);
 
 
 #endif

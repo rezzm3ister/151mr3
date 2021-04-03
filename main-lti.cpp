@@ -9,10 +9,11 @@ using namespace std;
 
 int main()
 {
-  vector<double> xdata, ydata; //vectors containing signal values
+  vector<double> b, a; //vectors containing signal values
+  int M,n;
   double temp;
  
-  while(!datain(xdata))
+  while(!datain(M,n,b,a))
   {
     //loops until valid file is provided
   }

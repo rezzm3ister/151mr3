@@ -194,6 +194,46 @@ bool datain(int &M, int &n, vector<double> &b, vector<double> &a)
 
 bool menu(int &M, int &n, vector<double> &b, vector<double> &a)
 {
+  char menuchoice;
 
+  cout<<"1. Load File"<<endl;
+  cout<<"2. Specify Log File"<<endl;
+  cout<<"3: View LTI System"<<endl;
+  cout<<"4. Specify next Input"<<endl;
+  cout<<"5. Specify next Signal Input"<<endl;
+  cout<<"6. Clear Memory"<<endl;
+  cout<<"0. Close Program"<<endl;
+
+  switch(menuchoice){
+    case '1':
+      //texy
+      while(!datain(M,n,b,a))
+      {//loops until valid file is provided
+      }
+      break;
+    case '2':
+      //texy
+      break;
+    case '3':
+      //texy
+      break;
+    case '4':
+      //texy
+      break;
+    case '5':
+      //texy
+      break;
+    case '6':
+      //texy
+      b.clear();
+      a.clear();
+      M=0;
+      n=0;
+      break;
+    case '0':
+      //texy
+      break;
+    
+  }
 }
 

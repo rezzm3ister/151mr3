@@ -10,5 +10,7 @@ bool isInt(string s, int& value);
 
 bool datain(int &M, int &n, vector<double> &b, vector<double> &a);
 
+bool menu(int &M, int &n, vector<double> &b, vector<double> &a);
+
 
 #endif

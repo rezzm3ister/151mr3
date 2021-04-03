@@ -192,3 +192,8 @@ bool datain(int &M, int &n, vector<double> &b, vector<double> &a)
   return 1;
 }
 
+bool menu(int &M, int &n, vector<double> &b, vector<double> &a)
+{
+
+}
+

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <cstdio>
 #include "functions.h"
 using namespace std;
 
@@ -13,11 +14,13 @@ int main()
   int M,n;
   double temp;
  
+
+ /*
   while(!datain(M,n,b,a))
   {
     //loops until valid file is provided
   }
-
+  //freopen("log.txt","w", stdout); logger
   cout<<"b"<<endl;
   for (int i=0;i<M+1;i++)
   {
@@ -28,6 +31,7 @@ int main()
   {
     cout<<a[i]<<endl;
   }
+  */
 }
 
 

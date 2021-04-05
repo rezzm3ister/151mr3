@@ -10,29 +10,15 @@ using namespace std;
 
 int main()
 {
-  vector<double> b, a; //vectors containing signal values
-  int M1,n;
+  vector<double> b, a, sig; //vectors containing signal values
+  int M1,n, sigindex;
   double temp;
+  b.clear();
+  a.clear();
+  M1=0;
+  n=0;
  
-  while(!menu(M1,n,b,a)){}
-
- /*
-  while(!datain(M,n,b,a))
-  {
-    //loops until valid file is provided
-  }
-  //freopen("log.txt","w", stdout); logger
-  cout<<"b"<<endl;
-  for (int i=0;i<M+1;i++)
-  {
-    cout<<b[i]<<endl;
-  }
-  cout<<"a\n";
-  for (int i=0;i<n;i++)
-  {
-    cout<<a[i]<<endl;
-  }
-  */
+  while(!menu(M1,n,b,a, sig, sigindex)){}
 }
 
 

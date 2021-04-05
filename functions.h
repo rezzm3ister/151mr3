@@ -10,13 +10,16 @@ bool isInt(string s, int& value);
 
 bool datain(int &M, int &n, vector<double> &b, vector<double> &a);
 
-bool showsys(int &M, int &n, vector<double> &b, vector<double> &a);
+bool getsigfile(vector<double> &sig);
 
-bool getsigfile(vector<double> &sig, int &sigindex);
+double LTI(int &M1, int &N, vector<double> &b, vector<double> &a, vector<double> &input, vector<double> &output);
 
-bool menu(int &M, int &n, vector<double> &b, vector<double> &a, vector<double> &sig, int &sigindex);
+string makeOutputFile();
 
+void writeToFile(vector<double> &output, string ofn);
 
+void showsys(int &M, int &n, vector<double> &b, vector<double> &a);
 
+void showdata(vector<double> data, string ttype);
 
 #endif

@@ -14,7 +14,7 @@ int main()
   int M,n;
   double temp;
  
-  while(!menu){}
+  while(!menu(M,n,b,a)){}
 
  /*
   while(!datain(M,n,b,a))

@@ -126,14 +126,14 @@ bool datain(int &M, int &n, vector<double> &b, vector<double> &a)
 
 bool showsys(int &M, int &n, vector<double> &b, vector<double> &a)
 {
-  cout<<"M = "<<M<<endl;
+  cout<<"M + 1 = "<<M+1<<endl;
 
   for(int i=0;i<M+1;i++)
   {
     cout<<"b["<<i<<"] = "<<b[i]<<endl;
   }
   cout<<endl;
-  cout<<"M = "<<M<<endl;
+  cout<<"n = "<<n<<endl;
 
   for(int i=0;i<n;i++)
   {

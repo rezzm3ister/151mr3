@@ -228,6 +228,9 @@ bool getsigfile(vector<double> &sig, int &sigindex)
 bool menu(int &M1, int &n, vector<double> &b, vector<double> &a, vector<double> &sig, int &sigindex)
 {
   char menuchoice;
+  cout<<"Current System: "<<endl;
+  showsys(M1,n,b,a);
+  cout<<endl<<endl;
 
   cout<<"1. Load File"<<endl;
   cout<<"2. Specify Log File"<<endl;
@@ -251,7 +254,7 @@ bool menu(int &M1, int &n, vector<double> &b, vector<double> &a, vector<double> 
       break;
     case '3':
       //texy
-      showsys(M1,n,b,a);
+      
       break;
     case '4':
       //texy

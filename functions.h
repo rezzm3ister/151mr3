@@ -12,7 +12,9 @@ bool datain(int &M, int &n, vector<double> &b, vector<double> &a);
 
 bool showsys(int &M, int &n, vector<double> &b, vector<double> &a);
 
-bool menu(int &M, int &n, vector<double> &b, vector<double> &a);
+bool getsigfile(vector<double> &sig, int &sigindex);
+
+bool menu(int &M, int &n, vector<double> &b, vector<double> &a, vector<double> &sig, int &sigindex);
 
 
 

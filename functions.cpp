@@ -49,7 +49,7 @@ bool isInt(string s, int& value)
   }
 }
 
-bool datain(int &M, int &n, vector<double> &b, vector<double> &a)
+bool datain(int &M1, int &n, vector<double> &b, vector<double> &a)
 {
   string fname;
   cout << "File Name for LTI system: ";
@@ -76,7 +76,7 @@ bool datain(int &M, int &n, vector<double> &b, vector<double> &a)
     }
     else
     {
-      M=tempi-1;
+      M1=tempi;
       fin >> ts;
       if (!isInt(ts,tempi))
       {
@@ -88,7 +88,7 @@ bool datain(int &M, int &n, vector<double> &b, vector<double> &a)
         n=tempi;
       }
     }
-    for (int i=0;i<M+1;i++){
+    for (int i=0;i<M1;i++){
       fin >> ts; //reads the first string in a line
 
       //if double and not blank
@@ -124,11 +124,11 @@ bool datain(int &M, int &n, vector<double> &b, vector<double> &a)
   return 1;
 }
 
-bool showsys(int &M, int &n, vector<double> &b, vector<double> &a)
+bool showsys(int &M1, int &n, vector<double> &b, vector<double> &a)
 {
-  cout<<"M + 1 = "<<M+1<<endl;
+  cout<<"M + 1 = "<<M1<<endl;
 
-  for(int i=0;i<M+1;i++)
+  for(int i=0;i<M1;i++)
   {
     cout<<"b["<<i<<"] = "<<b[i]<<endl;
   }

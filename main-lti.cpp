@@ -11,10 +11,10 @@ using namespace std;
 int main()
 {
   vector<double> b, a; //vectors containing signal values
-  int M,n;
+  int M1,n;
   double temp;
  
-  while(!menu(M,n,b,a)){}
+  while(!menu(M1,n,b,a)){}
 
  /*
   while(!datain(M,n,b,a))

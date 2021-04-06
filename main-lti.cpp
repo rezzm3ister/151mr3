@@ -31,7 +31,7 @@ int main()
     cout<<"5. Specify next Signal Input File"<<endl;
     cout<<"6. Clear Memory"<<endl;
     cout<<"0. Close Program"<<endl;
-
+    cout<<"Choice: ";
     cin >> menuchoice;
     cout << endl;
 

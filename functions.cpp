@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
-#include <math.h>
 #include <fstream>
 #include <sstream>
+#include <string>
 #include "functions.h"
 using namespace std;
 
@@ -25,7 +25,6 @@ bool isDouble(string s, double& value)
     return true;
     //returns 1 and updating value
   }
-
 }
 
 bool isInt(string s, int& value)
@@ -49,103 +48,93 @@ bool isInt(string s, int& value)
   }
 }
 
-bool datain(int &M1, int &n, vector<double> &b, vector<double> &a)
+bool datain(int &M1, int &N, vector<double> &b, vector<double> &a)
 {
+  a.clear();
+  b.clear();
   string fname;
   cout << "File Name for LTI system: ";
   //getline(cin,fname); //take user input filename
-  cin>>fname;
+  cin >> fname;
   string ts; //string being read in file
   double tempv; //temp storage for valid doubles
   int tempi; //temp storage for valid start index
 
   fstream fin;
   fin.open(fname);
-  if(!fin) //if file not found/invalid, throw error
+  if(!fin) //if file not found, throw error
   {
     cout<<"Error, file not detected. Try again.\n\n";
     return 0;
   }
-  else
+  else //check if number of coefficients are specified
   {
-    fin >> ts;
+    fin >> ts; //check first string in file (M+1)
+
+    //if not int, invalid file
     if(!isInt(ts,tempi))
     {
-      cout<<"invalid file."<<endl;
+      cout << "Error, not a valid LTI file.\n\n";
       return 0;
+    }
+    else //if first entry is int
+    {
+      M1 = tempi;
+      getline(fin,ts); //skips rest of first line
+    }
+
+    fin >> ts; //check first string in second line (N)
+    if(!isInt(ts,tempi))
+    {
+      cout << "Error, not a valid LTI file.\n\n";
+      return 0;
+    }
+    else //if next entry is int
+    {
+      N = tempi;
+    }
+  }
+
+  for(int i = 0; i < M1; i++) //reads until M+1 coefficients
+  {
+    fin >> ts; //reads the first string in a line
+    //if double and not blank
+    if((isDouble(ts,tempv)) && (ts != ""))
+    {
+      b.push_back(tempv); //add value to data vector
     }
     else
     {
-      M1=tempi;
-      fin >> ts;
-      if (!isInt(ts,tempi))
-      {
-        cout<<"invalid file."<<endl;
-        return 0;
-      }
-      else
-      {
-        n=tempi;
-      }
+      cout << "Error, not a valid LTI file.\n\n";
+      return 0; //if not enough valid doubles, file is invalid
     }
-    for (int i=0;i<M1;i++){
-      fin >> ts; //reads the first string in a line
-
-      //if double and not blank
-      if((isDouble(ts,tempv)) && (ts != ""))
-      {
-        b.push_back(tempv); //add value to data vector
-      }
-      else
-      {
-        break; //ends when start of line is not valid signal value
-      }
-      
-      getline(fin,ts); //skips the rest of the line
-    }
-    for (int i=0;i<n;i++){
-      fin >> ts; //reads the first string in a line
-
-      //if double and not blank
-      if((isDouble(ts,tempv)) && (ts != ""))
-      {
-        a.push_back(tempv); //add value to data vector
-      }
-      else
-      {
-        break; //ends when start of line is not valid signal value
-      }
-      
-      getline(fin,ts); //skips the rest of the line
-    }
-
+    getline(fin,ts); //skips the rest of the line
   }
 
+  for(int i = 0; i < N; i++) //reads until N coefficients
+  {
+    fin >> ts; //reads the first string in a line
+    //if double and not blank
+    if((isDouble(ts,tempv)) && (ts != ""))
+    {
+      a.push_back(tempv); //add value to data vector
+    }
+    else
+    {
+      cout << "Error, not a valid LTI file.\n\n";
+      return 0; //if not enough valid doubles, file is invalid
+    }
+    getline(fin,ts); //skips the rest of the line
+  }
+  cout << "Valid LTI system file found.\n\n";
   return 1;
 }
 
-bool showsys(int &M1, int &n, vector<double> &b, vector<double> &a)
-{
-  cout<<"M + 1 = "<<M1<<endl;
-
-  for(int i=0;i<M1;i++)
-  {
-    cout<<"b["<<i<<"] = "<<b[i]<<endl;
-  }
-  cout<<endl;
-  cout<<"n = "<<n<<endl;
-
-  for(int i=0;i<n;i++)
-  {
-    cout<<"b["<<i+1<<"] = "<<a[i]<<endl;
-  }
-}
-
-bool getsigfile(vector<double> &sig, int &sigindex)
+bool getsigfile(vector<double> &sig)
 {
   string fname;
   cout << "Signal File Name: ";
-  getline(cin,fname); //take user input filename
+  cin >> fname; //take user input filename
   string ts; //string being read in file
   double tempv; //temp storage for valid doubles
   int tempi; //temp storage for valid start index
@@ -174,8 +163,7 @@ bool getsigfile(vector<double> &sig, int &sigindex)
       }
       else //if double, set index to 0
       {
-        cout<<"Valid signal file with start index 0 found.\n\n";
-        sigindex = 0;
+        cout<<"Valid signal file found.\n\n";
 
         //returns to start of file so it may read signal value
         fin.seekg(0, fin.beg);
@@ -193,15 +181,13 @@ bool getsigfile(vector<double> &sig, int &sigindex)
       if((isDouble(ts2,tempv)) && (!ts2.empty()))
       {
         cout<<"Valid signal file found.\n\n";
-        sigindex = tempi;
         fin.seekg(0, fin.beg);
         fin >> ts; //go to second string
       }
       else //if no double after, first value is signal value
       {
-        cout<<"Valid signal file with start index 0 found.\n\n";
+        cout<<"Valid signal file found.\n\n";
         fin.seekg(0, fin.beg);
-        sigindex = 0;
       }
     }
 
@@ -225,58 +211,78 @@ bool getsigfile(vector<double> &sig, int &sigindex)
   return 1;
 }
 
-bool menu(int &M1, int &n, vector<double> &b, vector<double> &a, vector<double> &sig, int &sigindex)
+double LTI(int &M1, int &N, vector<double> &b, vector<double> &a, vector<double> &input, vector<double> &output)
 {
-  char menuchoice;
-  cout<<"Current System: "<<endl;
-  showsys(M1,n,b,a);
-  cout<<endl<<endl;
-
-  cout<<"1. Load File"<<endl;
-  cout<<"2. Specify Log File"<<endl;
-  cout<<"3: View LTI System"<<endl;
-  cout<<"4. Specify next Input"<<endl;
-  cout<<"5. Specify next Signal Input File"<<endl;
-  cout<<"6. Clear Memory"<<endl;
-  cout<<"0. Close Program"<<endl;
-
-  cin>>menuchoice;
-
-  switch(menuchoice){
-    case '1':
-      //texy
-      while(!datain(M1,n,b,a))
-      {//loops until valid file is provided
-      }
-      break;
-    case '2':
-      //texy
-      break;
-    case '3':
-      //texy
-      
-      break;
-    case '4':
-      //texy
-      break;
-    case '5':
-      while(!getsigfile(sig, sigindex))
-      {}
-      //texy
-      break;
-    case '6':
-      //texy
-      b.clear();
-      a.clear();
-      M1=0;
-      n=0;
-      break;
-    case '0':
-      //texy
-      return 1;
-      break;
-    
+  double sumX = 0, sumY = 0, y_n = 0;
+  int negativeTest;
+  
+  for(int i = 1; i <= N; i++)
+  {
+    negativeTest = output.size() - i;
+    if(negativeTest > 0)
+    {
+      sumY = sumY + a[i-1] * output[negativeTest];
+    }
   }
-  return 0;
+
+  for(int j = 0; j <= M1 - 1; j++)
+  {
+    negativeTest = output.size() - j;
+    if(negativeTest > 0)
+    {
+      sumX = sumX + b[j] * input[negativeTest];
+    }
+  }
+  y_n = 0 - sumY + sumX;
+  return y_n;
 }
 
+string makeOutputFile()
+{
+  string ofn;
+  cout << "Enter filename of output log file: ";
+  cin >> ofn;
+  return ofn;
+}
+
+void writeToFile(vector<double> &output, string ofn)
+{
+  ofstream outfile;
+  outfile.open(ofn, std::ios::app);
+  cout << "Output: " << output[output.size()-1] << endl;
+  outfile << output[output.size()-1] << endl;
+}
+
+void showsys(int &M1, int &N, vector<double> &b, vector<double> &a)
+{
+  cout<<"Non-recursive coefficients: "<<M1<<endl;
+
+  for(int i=0;i<M1;i++)
+  {
+    cout<<"b_"<<i<<" = "<<b[i]<<endl;
+  }
+  cout<<endl;
+  cout<<"Recursive coefficients: "<<N<<endl;
+
+  for(int i=0;i<N;i++)
+  {
+    cout<<"a_"<<i+1<<" = "<<a[i]<<endl;
+  }
+}
+
+void showdata(vector<double> data, string ttype)
+{
+  cout << ttype << ": ";
+  for(int i = 0; i < data.size(); i++)
+  {
+    if(i == data.size() - 1)
+    {
+      cout << data[i];
+    }
+    else
+    {
+      cout << data[i] << ", ";
+    }
+  }
+  cout << endl;
+}

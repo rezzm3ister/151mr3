@@ -35,7 +35,8 @@ int main()
     cin >> menuchoice;
     cout << endl;
 
-    switch(menuchoice){
+    switch(menuchoice)
+    {
       case '1':
         outFilename = "";
         while(!datain(M1, N, b, a)) {} //loops until valid file is provided
